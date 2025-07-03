@@ -2,6 +2,18 @@
 
 All notable updates and learnings will be documented in this file.
 
+## [v0.2.0] - 2025-07-03
+
+### Added
+- Master prompt system for integrating atlas-mind into conversations
+- Quick prompt for rapid interactions
+- HOW_TO_USE.md guide for repository usage
+- First knowledge entry documenting repository creation
+
+### Created
+- `/knowledge/domains/meta/` - Meta domain for self-referential knowledge
+- Comprehensive usage documentation
+
 ## [Initial] - 2025-07-03
 
 ### Added
