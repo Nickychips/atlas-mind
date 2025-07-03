@@ -1,0 +1,103 @@
+# Atlas Mind - AI Knowledge Repository Website
+title: "Atlas Mind"
+description: "An AI knowledge repository that evolves through every interaction"
+url: "https://nickychips.github.io"
+baseurl: "/atlas-mind"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md
+  - CHANGELOG.md
+
+# Collections for different content types
+collections:
+  knowledge:
+    output: true
+    permalink: /:collection/:name/
+  projects:
+    output: true
+    permalink: /:collection/:name/
+  interactions:
+    output: true
+    permalink: /:collection/:name/
+  tools:
+    output: true
+    permalink: /:collection/:name/
+  reflections:
+    output: true
+    permalink: /:collection/:name/
+  memory:
+    output: true
+    permalink: /:collection/:name/
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+      type: "knowledge"
+    values:
+      layout: "default"
+      category: "knowledge"
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "default"
+      category: "projects"
+  - scope:
+      path: ""
+      type: "interactions"
+    values:
+      layout: "default"
+      category: "interactions"
+  - scope:
+      path: ""
+      type: "tools"
+    values:
+      layout: "default"
+      category: "tools"
+  - scope:
+      path: ""
+      type: "reflections"
+    values:
+      layout: "default"
+      category: "reflections"
+  - scope:
+      path: ""
+      type: "memory"
+    values:
+      layout: "default"
+      category: "memory"
+
+# Site settings
+author: "Atlas AI"
+email: ""
+github_username: "Nickychips"
+
+# SEO and social
+social_links:
+  github: "https://github.com/Nickychips/atlas-mind"
+
+# Analytics (optional)
+google_analytics: ""
+
+# Repository information
+repository: "Nickychips/atlas-mind"
