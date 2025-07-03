@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas Mind Browser - Explore Knowledge</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 50%, #0d1421 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: rgba(15, 15, 25, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(64, 224, 208, 0.3);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #40e0d0;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-btn {
+            color: #40e0d0;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(64, 224, 208, 0.3);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(64, 224, 208, 0.1);
+        }
+
+        /* Main content */
+        main {
+            margin-top: 80px;
+            padding: 2rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .browser-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .browser-header h1 {
+            font-size: 2.5rem;
+            color: #40e0d0;
+            margin-bottom: 1rem;
+        }
+
+        .search-section {
+            background: rgba(25, 25, 35, 0.8);
+            border: 1px solid rgba(64, 224, 208, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem;
+            background: rgba(15, 15, 25, 0.8);
+            border: 1px solid rgba(64, 224, 208, 0.3);
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 1rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #40e0d0;
+            box-shadow: 0 0 10px rgba(64, 224, 208, 0.3);
+        }
+
+        .search-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #40e0d0, #8a2be2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(64, 224, 208, 0.3);
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(64, 224, 208, 0.1);
+            border: 1px solid rgba(64, 224, 208, 0.3);
+            border-radius: 6px;
+            color: #40e0d0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: rgba(64, 224, 208, 0.3);
+            border-color: #40e0d0;
+        }
+
+        .filter-btn:hover {
+            background: rgba(64, 224, 208, 0.2);
+        }
+
+        /* Content areas */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .sidebar {
+            background: rgba(25, 25, 35, 0.8);
+            border: 1px solid rgba(64, 224, 208, 0.3);
+            border-radius: 16px;
+            padding: 1.5rem;
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            color: #40e0d0;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .folder-tree {
+            list-style: none;
+        }
+
+        .folder-tree li {
+            padding: 0.5rem 0;
+            border-left: 2px solid rgba(64, 224, 208, 0.2);
+            padding-left: 1rem;
+            margin-left: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .folder-tree li:hover {
+            border-left-color: #40e0d0;
+            color: #40e0d0;
+        }
+
+        .folder-tree li.active {
+            border-left-color: #40e0d0;
+            color: #40e0d0;
+            background: rgba(64, 224, 208, 0.1);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .main-content {
+            background: rgba(25, 25, 35, 0.8);
+            border: 1px solid rgba(64, 224, 208, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(64, 224, 208, 0.2);
+        }
+
+        .content-header h2 {
+            color: #40e0d0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .view-btn {
+            padding: 0.5rem;
+            background: rgba(64, 224, 208, 0.1);
+            border: 1px solid rgba(64, 224, 208, 0.3);
+            border-radius: 6px;
+            color: #40e0d0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn.active {
+            background: rgba(64, 224, 208, 0.3);
+        }
+
+        /* File listings */
+        .file-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .file-card {
+            background: rgba(15, 15, 25, 0.6);
+            border: 1px solid rgba(64, 224, 208, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .file-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(64, 224, 208, 0.5);
+            box-shadow: 0 5px 20px rgba(64, 224, 208, 0.2);
+        }
+
+        .file-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .file-icon {
+            font-size: 1.5rem;
+            color: #40e0d0;
+        }
+
+        .file-title {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .file-meta {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 1rem;
+        }
+
+        .file-preview {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+
+        .tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(138, 43, 226, 0.2);
+            color: #8a2be2;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+        }
+
+        /* List view */
+        .file-list {
+            display: none;
+        }
+
+        .file-list.active {
+            display: block;
+        }
+
+        .file-list-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(64, 224, 208, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .file-list-item:hover {
+            background: rgba(64, 224, 208, 0.05);
+        }
+
+        .file-list-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Loading and empty states */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: #888;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #888;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .file-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-bar {
+                flex-direction: column;
+            }
+            
+            .filters {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <i class="fas fa-brain"></i>
+                Atlas Mind Browser
+            </a>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Home
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="browser-header">
+            <h1>Knowledge Explorer</h1>
+            <p>Navigate and search through Atlas Mind's knowledge repository</p>
+        </div>
+
+        <div class="search-section">
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Search knowledge, projects, reflections..." id="searchInput">
+                <button class="search-btn" onclick="performSearch()">
+                    <i class="fas fa-search"></i>
+                    Search
+                </button>
+            </div>
+            
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="knowledge">Knowledge</button>
+                <button class="filter-btn" data-filter="projects">Projects</button>
+                <button class="filter-btn" data-filter="interactions">Interactions</button>
+                <button class="filter-btn" data-filter="tools">Tools</button>
+                <button class="filter-btn" data-filter="reflections">Reflections</button>
+                <button class="filter-btn" data-filter="memory">Memory</button>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <aside class="sidebar">
+                <h3>
+                    <i class="fas fa-folder-tree"></i>
+                    Repository Structure
+                </h3>
+                <ul class="folder-tree" id="folderTree">
+                    <li data-path="knowledge" class="active">
+                        <i class="fas fa-book"></i> Knowledge
+                    </li>
+                    <li data-path="projects">
+                        <i class="fas fa-rocket"></i> Projects
+                    </li>
+                    <li data-path="interactions">
+                        <i class="fas fa-comments"></i> Interactions
+                    </li>
+                    <li data-path="tools">
+                        <i class="fas fa-wrench"></i> Tools
+                    </li>
+                    <li data-path="reflections">
+                        <i class="fas fa-mirror"></i> Reflections
+                    </li>
+                    <li data-path="memory">
+                        <i class="fas fa-memory"></i> Memory
+                    </li>
+                </ul>
+            </aside>
+
+            <div class="main-content">
+                <div class="content-header">
+                    <h2 id="contentTitle">
+                        <i class="fas fa-book"></i>
+                        Knowledge Base
+                    </h2>
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="grid" title="Grid View">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" data-view="list" title="List View">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="contentArea">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Loading repository contents...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Mock data - In a real implementation, this would come from GitHub API
+        const mockData = {
+            knowledge: [
+                {
+                    name: "AI and Machine Learning",
+                    type: "folder",
+                    description: "Core concepts in artificial intelligence and machine learning",
+                    lastModified: "2025-07-02",
+                    tags: ["AI", "ML", "Technology"],
+                    icon: "fas fa-robot"
+                },
+                {
+                    name: "Web Development",
+                    type: "folder", 
+                    description: "Frontend and backend development practices",
+                    lastModified: "2025-07-01",
+                    tags: ["Web", "Programming", "Technology"],
+                    icon: "fas fa-code"
+                },
+                {
+                    name: "Data Structures",
+                    type: "file",
+                    description: "Fundamental data structures and algorithms",
+                    lastModified: "2025-06-30",
+                    tags: ["Programming", "Algorithms"],
+                    icon: "fas fa-sitemap"
+                }
+            ],
+            projects: [
+                {
+                    name: "Atlas Mind Website",
+                    type: "folder",
+                    description: "Development of the Atlas Mind website and knowledge browser",
+                    lastModified: "2025-07-03",
+                    tags: ["Web", "UI/UX", "Current"],
+                    icon: "fas fa-globe"
+                },
+                {
+                    name: "Knowledge Automation",
+                    type: "folder",
+                    description: "Scripts for automated knowledge entry and organization",
+                    lastModified: "2025-07-01",
+                    tags: ["Automation", "Scripts", "Ideas"],
+                    icon: "fas fa-cogs"
+                }
+            ],
+            interactions: [
+                {
+                    name: "Effective Prompting",
+                    type: "file",
+                    description: "Patterns for effective AI prompting and interaction",
+                    lastModified: "2025-07-02",
+                    tags: ["Patterns", "AI", "Communication"],
+                    icon: "fas fa-comment-dots"
+                }
+            ],
+            tools: [
+                {
+                    name: "Knowledge Templates",
+                    type: "folder",
+                    description: "Templates for consistent knowledge entry format",
+                    lastModified: "2025-06-28",
+                    tags: ["Templates", "Organization"],
+                    icon: "fas fa-file-alt"
+                }
+            ],
+            reflections: [
+                {
+                    name: "Learning Patterns",
+                    type: "file",
+                    description: "Insights about how knowledge accumulates and connects",
+                    lastModified: "2025-07-01",
+                    tags: ["Learning", "Insights", "Meta"],
+                    icon: "fas fa-lightbulb"
+                }
+            ],
+            memory: [
+                {
+                    name: "Working Context",
+                    type: "folder",
+                    description: "Active problem-solving contexts and temporary knowledge",
+                    lastModified: "2025-07-03",
+                    tags: ["Context", "Active", "Temporary"],
+                    icon: "fas fa-brain"
+                }
+            ]
+        };
+
+        let currentView = 'grid';
+        let currentFilter = 'all';
+        let currentPath = 'knowledge';
+
+        // Initialize the browser
+        function initBrowser() {
+            setupEventListeners();
+            loadContent(currentPath);
+        }
+
+        function setupEventListeners() {
+            // Folder tree navigation
+            document.querySelectorAll('.folder-tree li').forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('.folder-tree li').forEach(li => li.classList.remove('active'));
+                    this.classList.add('active');
+                    currentPath = this.dataset.path;
+                    loadContent(currentPath);
+                });
+            });
+
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.filter;
+                    loadContent(currentPath);
+                });
+            });
+
+            // View toggle
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentView = this.dataset.view;
+                    renderContent(getFilteredData());
+                });
+            });
+
+            // Search functionality
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+        }
+
+        function loadContent(path) {
+            const contentArea = document.getElementById('contentArea');
+            const contentTitle = document.getElementById('contentTitle');
+            
+            contentArea.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i><p>Loading...</p></div>';
+            
+            setTimeout(() => {
+                const data = getFilteredData();
+                updateContentTitle(path);
+                renderContent(data);
+            }, 500);
+        }
+
+        function getFilteredData() {
+            let data = [];
+            
+            if (currentFilter === 'all') {
+                Object.values(mockData).forEach(categoryData => {
+                    data = data.concat(categoryData);
+                });
+            } else {
+                data = mockData[currentFilter] || mockData[currentPath] || [];
+            }
+            
+            return data;
+        }
+
+        function updateContentTitle(path) {
+            const contentTitle = document.getElementById('contentTitle');
+            const icons = {
+                knowledge: 'fas fa-book',
+                projects: 'fas fa-rocket',
+                interactions: 'fas fa-comments',
+                tools: 'fas fa-wrench',
+                reflections: 'fas fa-mirror',
+                memory: 'fas fa-memory'
+            };
+            
+            const titles = {
+                knowledge: 'Knowledge Base',
+                projects: 'Projects',
+                interactions: 'Interactions',
+                tools: 'Tools',
+                reflections: 'Reflections',
+                memory: 'Memory'
+            };
+            
+            contentTitle.innerHTML = `<i class="${icons[path]}"></i> ${titles[path]}`;
+        }
+
+        function renderContent(data) {
+            const contentArea = document.getElementById('contentArea');
+            
+            if (data.length === 0) {
+                contentArea.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-folder-open"></i>
+                        <h3>No content found</h3>
+                        <p>Try adjusting your search or filter criteria</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            if (currentView === 'grid') {
+                renderGridView(data);
+            } else {
+                renderListView(data);
+            }
+        }
+
+        function renderGridView(data) {
+            const contentArea = document.getElementById('contentArea');
+            const gridHTML = data.map(item => `
+                <div class="file-card" onclick="openItem('${item.name}')">
+                    <div class="file-header">
+                        <i class="${item.icon}"></i>
+                        <span class="file-title">${item.name}</span>
+                    </div>
+                    <div class="file-meta">
+                        ${item.type.toUpperCase()} • ${item.lastModified}
+                    </div>
+                    <div class="file-preview">
+                        ${item.description}
+                    </div>
+                    <div class="tags">
+                        ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+            
+            contentArea.innerHTML = `<div class="file-grid">${gridHTML}</div>`;
+        }
+
+        function renderListView(data) {
+            const contentArea = document.getElementById('contentArea');
+            const listHTML = data.map(item => `
+                <div class="file-list-item" onclick="openItem('${item.name}')">
+                    <i class="${item.icon}" style="margin-right: 1rem; color: #40e0d0;"></i>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600; color: #fff; margin-bottom: 0.25rem;">${item.name}</div>
+                        <div style="font-size: 0.9rem; color: #b0b0b0;">${item.description}</div>
+                    </div>
+                    <div style="text-align: right; color: #888; font-size: 0.8rem;">
+                        <div>${item.type.toUpperCase()}</div>
+                        <div>${item.lastModified}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            contentArea.innerHTML = `<div class="file-list active">${listHTML}</div>`;
+        }
+
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            if (!searchTerm) {
+                loadContent(currentPath);
+                return;
+            }
+            
+            let filteredData = [];
+            Object.values(mockData).forEach(categoryData => {
+                const matches = categoryData.filter(item => 
+                    item.name.toLowerCase().includes(searchTerm) ||
+                    item.description.toLowerCase().includes(searchTerm) ||
+                    item.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+                );
+                filteredData = filteredData.concat(matches);
+            });
+            
+            document.getElementById('contentTitle').innerHTML = `
+                <i class="fas fa-search"></i> 
+                Search Results (${filteredData.length})
+            `;
+            
+            renderContent(filteredData);
+        }
+
+        function openItem(itemName) {
+            // In a real implementation, this would navigate to the actual file/folder
+            alert(`Opening: ${itemName}\n\nIn a full implementation, this would open the actual file or navigate to the folder contents.`);
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initBrowser);
+    </script>
+</body>
+</html>
