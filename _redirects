@@ -1,0 +1,12 @@
+# Redirects for Netlify
+/atlas-mind/*   /:splat   301
+/browse         /browser.html   200
+/knowledge      /browser.html#knowledge   200
+/projects       /browser.html#projects   200
+/interactions   /browser.html#interactions   200
+/tools          /browser.html#tools   200
+/reflections    /browser.html#reflections   200
+/memory         /browser.html#memory   200
+
+# SPA fallback
+/*              /index.html   200
