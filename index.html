@@ -28,7 +28,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.1;
+            opacity: 0.8;
         }
 
         .neural-network {
@@ -538,33 +538,78 @@
     </footer>
 
     <script>
-        // Neural network background animation
-        function initNeuralNetwork() {
+        // Background animation with neural network and twinkling stars
+        function initBackgroundAnimation() {
             const canvas = document.getElementById('neural-canvas');
             const ctx = canvas.getContext('2d');
             
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             
+            // Neural network nodes
             const nodes = [];
-            const connections = [];
-            const numNodes = 50;
+            const numNodes = 40;
             
-            // Create nodes
+            // Twinkling stars
+            const stars = [];
+            const numStars = 150;
+            
+            // Create neural network nodes
             for (let i = 0; i < numNodes; i++) {
                 nodes.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5,
-                    radius: Math.random() * 2 + 1
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3,
+                    radius: Math.random() * 1.5 + 0.5
+                });
+            }
+            
+            // Create twinkling stars
+            for (let i = 0; i < numStars; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.5 + 0.5,
+                    opacity: Math.random(),
+                    twinkleSpeed: Math.random() * 0.02 + 0.005,
+                    twinkleDirection: Math.random() > 0.5 ? 1 : -1,
+                    color: Math.random() > 0.8 ? '#8a2be2' : '#40e0d0' // Occasional purple stars
                 });
             }
             
             function animate() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 
-                // Update nodes
+                // Draw twinkling stars first (background layer)
+                stars.forEach(star => {
+                    // Update twinkling
+                    star.opacity += star.twinkleSpeed * star.twinkleDirection;
+                    if (star.opacity <= 0 || star.opacity >= 1) {
+                        star.twinkleDirection *= -1;
+                    }
+                    star.opacity = Math.max(0, Math.min(1, star.opacity));
+                    
+                    // Draw star
+                    ctx.beginPath();
+                    ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = star.color === '#8a2be2' 
+                        ? `rgba(138, 43, 226, ${star.opacity * 0.6})` 
+                        : `rgba(64, 224, 208, ${star.opacity * 0.4})`;
+                    ctx.fill();
+                    
+                    // Add subtle glow for larger stars
+                    if (star.radius > 1) {
+                        ctx.beginPath();
+                        ctx.arc(star.x, star.y, star.radius * 2, 0, Math.PI * 2);
+                        ctx.fillStyle = star.color === '#8a2be2' 
+                            ? `rgba(138, 43, 226, ${star.opacity * 0.1})` 
+                            : `rgba(64, 224, 208, ${star.opacity * 0.1})`;
+                        ctx.fill();
+                    }
+                });
+                
+                // Update neural network nodes
                 nodes.forEach(node => {
                     node.x += node.vx;
                     node.y += node.vy;
@@ -573,8 +618,8 @@
                     if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
                 });
                 
-                // Draw connections
-                ctx.strokeStyle = 'rgba(64, 224, 208, 0.1)';
+                // Draw neural network connections
+                ctx.strokeStyle = 'rgba(64, 224, 208, 0.08)';
                 ctx.lineWidth = 0.5;
                 
                 for (let i = 0; i < nodes.length; i++) {
@@ -583,8 +628,8 @@
                         const dy = nodes[i].y - nodes[j].y;
                         const distance = Math.sqrt(dx * dx + dy * dy);
                         
-                        if (distance < 100) {
-                            const opacity = (100 - distance) / 100 * 0.1;
+                        if (distance < 120) {
+                            const opacity = (120 - distance) / 120 * 0.08;
                             ctx.strokeStyle = `rgba(64, 224, 208, ${opacity})`;
                             ctx.beginPath();
                             ctx.moveTo(nodes[i].x, nodes[i].y);
@@ -594,11 +639,17 @@
                     }
                 }
                 
-                // Draw nodes
-                ctx.fillStyle = 'rgba(64, 224, 208, 0.6)';
+                // Draw neural network nodes
                 nodes.forEach(node => {
                     ctx.beginPath();
                     ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(64, 224, 208, 0.4)';
+                    ctx.fill();
+                    
+                    // Add glow effect to nodes
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, node.radius * 2, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(64, 224, 208, 0.1)';
                     ctx.fill();
                 });
                 
@@ -611,6 +662,17 @@
             window.addEventListener('resize', () => {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
+                
+                // Redistribute stars and nodes for new canvas size
+                stars.forEach(star => {
+                    if (star.x > canvas.width) star.x = Math.random() * canvas.width;
+                    if (star.y > canvas.height) star.y = Math.random() * canvas.height;
+                });
+                
+                nodes.forEach(node => {
+                    if (node.x > canvas.width) node.x = Math.random() * canvas.width;
+                    if (node.y > canvas.height) node.y = Math.random() * canvas.height;
+                });
             });
         }
         
@@ -640,7 +702,7 @@
         
         // Initialize animations
         document.addEventListener('DOMContentLoaded', () => {
-            initNeuralNetwork();
+            initBackgroundAnimation();
             
             // Animate stats counters
             const statNumbers = document.querySelectorAll('.stat-number');
