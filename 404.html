@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | Atlas Mind</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 50%, #0d1421 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 2rem;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: bold;
+            color: #40e0d0;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(64, 224, 208, 0.5);
+        }
+
+        .error-message {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .error-description {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .brain-icon {
+            font-size: 4rem;
+            color: #40e0d0;
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #40e0d0, #8a2be2);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(64, 224, 208, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(64, 224, 208, 0.1);
+            border: 1px solid rgba(64, 224, 208, 0.3);
+            color: #40e0d0;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(64, 224, 208, 0.2);
+            color: #fff;
+        }
+
+        .suggestions {
+            margin-top: 3rem;
+            text-align: left;
+            background: rgba(25, 25, 35, 0.8);
+            border: 1px solid rgba(64, 224, 208, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .suggestions h3 {
+            color: #40e0d0;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .suggestions ul {
+            list-style: none;
+        }
+
+        .suggestions li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .suggestions li i {
+            color: #40e0d0;
+            width: 20px;
+        }
+
+        .suggestions a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .suggestions a:hover {
+            color: #40e0d0;
+        }
+
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 6rem;
+            }
+
+            .error-message {
+                font-size: 1.5rem;
+            }
+
+            .actions {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="brain-icon">
+            <i class="fas fa-brain"></i>
+        </div>
+        
+        <div class="error-code">404</div>
+        
+        <h1 class="error-message">Knowledge Not Found</h1>
+        
+        <p class="error-description">
+            It seems the knowledge you're looking for has wandered off into the digital ether. 
+            Even Atlas needs to explore new territories sometimes!
+        </p>
+        
+        <div class="actions">
+            <a href="/index.html" class="btn">
+                <i class="fas fa-home"></i>
+                Return Home
+            </a>
+            <a href="/browser.html" class="btn btn-secondary">
+                <i class="fas fa-search"></i>
+                Browse Knowledge
+            </a>
+        </div>
+        
+        <div class="suggestions">
+            <h3>
+                <i class="fas fa-compass"></i>
+                Suggested Destinations
+            </h3>
+            <ul>
+                <li>
+                    <i class="fas fa-book"></i>
+                    <a href="/browser.html#knowledge">Explore Knowledge Base</a>
+                </li>
+                <li>
+                    <i class="fas fa-rocket"></i>
+                    <a href="/browser.html#projects">View Projects</a>
+                </li>
+                <li>
+                    <i class="fas fa-comments"></i>
+                    <a href="/browser.html#interactions">Browse Interactions</a>
+                </li>
+                <li>
+                    <i class="fas fa-mirror"></i>
+                    <a href="/browser.html#reflections">Read Reflections</a>
+                </li>
+                <li>
+                    <i class="fab fa-github"></i>
+                    <a href="https://github.com/Nickychips/atlas-mind" target="_blank">View Repository</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
