@@ -1,0 +1,75 @@
+[build]
+  # Build command (if using Jekyll)
+  command = "bundle exec jekyll build"
+  
+  # Directory that contains the deploy-ready HTML files
+  publish = "_site"
+  
+  # Directory with the serverless functions
+  functions = "netlify/functions"
+
+[build.environment]
+  # Ruby version for Jekyll
+  RUBY_VERSION = "3.1.0"
+  
+  # Jekyll environment
+  JEKYLL_ENV = "production"
+
+# Redirect rules
+[[redirects]]
+  from = "/atlas-mind/*"
+  to = "/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/browse"
+  to = "/browser.html"
+  status = 200
+
+[[redirects]]
+  from = "/knowledge"
+  to = "/browser.html#knowledge"
+  status = 200
+
+[[redirects]]
+  from = "/projects"
+  to = "/browser.html#projects"
+  status = 200
+
+# Headers for security and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com; font-src 'self' cdnjs.cloudflare.com; img-src 'self' data:; connect-src 'self' api.github.com"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Form handling (for future contact forms)
+[[redirects]]
+  from = "/contact"
+  to = "/contact-success.html"
+  status = 200
+  conditions = {Role = ["admin"]}
+
+# 404 page
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
