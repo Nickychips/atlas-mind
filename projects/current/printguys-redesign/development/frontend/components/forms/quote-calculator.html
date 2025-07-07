@@ -1,0 +1,238 @@
+<!-- PrintGuys.ca Quote Calculator Component -->
+<section class="quote-calculator bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4">
+  <div class="max-w-4xl mx-auto">
+    
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-bold text-gray-900 mb-3">Get Your Quote Now</h2>
+      <p class="text-lg text-gray-600">Instant pricing - no hidden fees, no minimums</p>
+    </div>
+
+    <!-- Calculator Form -->
+    <div class="bg-white rounded-2xl shadow-xl p-8">
+      <form id="quote-form" class="space-y-6">
+        
+        <!-- Service Selection -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-2">
+            <label for="service-type" class="block text-sm font-semibold text-gray-700">
+              Select Service
+            </label>
+            <select id="service-type" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg">
+              <option value="dtf" data-price="0.025" data-unit="sq inch">DTF Heat Transfers ($0.025/sq inch)</option>
+              <option value="screen" data-price="2.50" data-unit="piece">Screen Printing ($2.50/piece)</option>
+              <option value="sublimation" data-price="1.25" data-unit="piece">Sublimation ($1.25/piece)</option>
+              <option value="embroidery" data-price="8.00" data-unit="piece">Embroidery ($8.00/piece)</option>
+              <option value="uv-dtf" data-price="0.05" data-unit="sq inch">UV DTF Stickers ($0.05/sq inch)</option>
+            </select>
+          </div>
+
+          <div class="space-y-2">
+            <label for="quantity" class="block text-sm font-semibold text-gray-700">
+              Quantity
+            </label>
+            <input type="number" id="quantity" min="1" value="100" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg">
+          </div>
+        </div>
+
+        <!-- Dimensions (for area-based pricing) -->
+        <div id="dimensions-section" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-2">
+            <label for="width" class="block text-sm font-semibold text-gray-700">
+              Width (inches)
+            </label>
+            <input type="number" id="width" min="0.1" step="0.1" value="5" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg">
+          </div>
+
+          <div class="space-y-2">
+            <label for="height" class="block text-sm font-semibold text-gray-700">
+              Height (inches)
+            </label>
+            <input type="number" id="height" min="0.1" step="0.1" value="5" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg">
+          </div>
+        </div>
+
+        <!-- Rush Options -->
+        <div class="space-y-3">
+          <label class="block text-sm font-semibold text-gray-700">Rush Options</label>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+              <input type="radio" name="rush" value="none" checked class="mr-3 text-blue-600">
+              <div>
+                <span class="font-medium">Standard (24-48 hours)</span>
+                <span class="block text-sm text-gray-500">No additional cost</span>
+              </div>
+            </label>
+            
+            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+              <input type="radio" name="rush" value="24hr" class="mr-3 text-blue-600">
+              <div>
+                <span class="font-medium">24 Hour Rush (+50%)</span>
+                <span class="block text-sm text-gray-500">Guaranteed next day</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Price Display -->
+        <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 border border-green-200">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="text-center md:text-left mb-4 md:mb-0">
+              <div class="text-sm text-gray-600 mb-1">Estimated Total Cost</div>
+              <div class="text-4xl font-bold text-green-600" id="estimated-price">$6.25</div>
+              <div class="text-sm text-gray-500" id="price-breakdown">25 sq in × $0.025 × 100 pieces</div>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row gap-3">
+              <button type="button" id="get-detailed-quote" 
+                      class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+                Get Detailed Quote
+              </button>
+              <button type="button" id="upload-design" 
+                      class="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors">
+                Upload Design
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional Info -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-gray-200">
+          <div class="text-center">
+            <div class="text-green-600 font-semibold">✓ No Minimums</div>
+            <div class="text-sm text-gray-500">Order as few as 1 piece</div>
+          </div>
+          <div class="text-center">
+            <div class="text-green-600 font-semibold">✓ Fast Turnaround</div>
+            <div class="text-sm text-gray-500">24-48 hour standard delivery</div>
+          </div>
+          <div class="text-center">
+            <div class="text-green-600 font-semibold">✓ Quality Guaranteed</div>
+            <div class="text-sm text-gray-500">70-100 wash durability</div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Popular Sizes Quick Select -->
+    <div class="mt-8 text-center">
+      <div class="text-lg font-semibold text-gray-700 mb-4">Popular Sizes</div>
+      <div class="flex flex-wrap justify-center gap-3">
+        <button class="quick-size px-4 py-2 bg-white border border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors" 
+                data-width="3" data-height="3">3" × 3"</button>
+        <button class="quick-size px-4 py-2 bg-white border border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors" 
+                data-width="5" data-height="5">5" × 5"</button>
+        <button class="quick-size px-4 py-2 bg-white border border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors" 
+                data-width="8" data-height="10">8" × 10"</button>
+        <button class="quick-size px-4 py-2 bg-white border border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors" 
+                data-width="12" data-height="12">12" × 12"</button>
+        <button class="quick-size px-4 py-2 bg-white border border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors" 
+                data-width="11" data-height="17">11" × 17"</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Quote Calculator JavaScript (embedded for component completeness) -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Quick size selection
+  document.querySelectorAll('.quick-size').forEach(button => {
+    button.addEventListener('click', function() {
+      const width = this.dataset.width;
+      const height = this.dataset.height;
+      
+      document.getElementById('width').value = width;
+      document.getElementById('height').value = height;
+      
+      // Trigger calculation
+      const event = new Event('input', { bubbles: true });
+      document.getElementById('width').dispatchEvent(event);
+    });
+  });
+
+  // Service type change handler
+  document.getElementById('service-type').addEventListener('change', function() {
+    const dimensionsSection = document.getElementById('dimensions-section');
+    const service = this.value;
+    
+    // Show/hide dimensions based on service type
+    if (service === 'dtf' || service === 'uv-dtf') {
+      dimensionsSection.style.display = 'grid';
+    } else {
+      dimensionsSection.style.display = 'none';
+    }
+  });
+
+  // CTA button handlers
+  document.getElementById('get-detailed-quote').addEventListener('click', function() {
+    // Collect form data
+    const formData = {
+      service: document.getElementById('service-type').value,
+      width: document.getElementById('width').value,
+      height: document.getElementById('height').value,
+      quantity: document.getElementById('quantity').value,
+      rush: document.querySelector('input[name="rush"]:checked').value,
+      estimatedPrice: document.getElementById('estimated-price').textContent
+    };
+    
+    // Store in session for quote page
+    sessionStorage.setItem('quoteData', JSON.stringify(formData));
+    
+    // Navigate to detailed quote page
+    window.location.href = '/quote';
+  });
+
+  document.getElementById('upload-design').addEventListener('click', function() {
+    // Navigate to upload page
+    window.location.href = '/upload';
+  });
+});
+</script>
+
+<style>
+/* Component-specific styles */
+.quote-calculator {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.quote-calculator input:focus,
+.quote-calculator select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.quote-calculator .quick-size:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.quote-calculator button {
+  cursor: pointer;
+}
+
+.quote-calculator button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .quote-calculator {
+    padding: 2rem 1rem;
+  }
+  
+  .quote-calculator .bg-white {
+    padding: 1.5rem;
+  }
+  
+  .quote-calculator .text-4xl {
+    font-size: 2rem;
+  }
+}
+</style>
