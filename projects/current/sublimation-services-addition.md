@@ -23,6 +23,7 @@
 - **Material**: Polyester terry and microfiber options
 - **Sizes**: 16" x 20" standard, 11" x 18" compact
 - **Features**: Clip attachment, absorbent, durable
+- **Grommet**: Optional metal grommet for easy attachment
 - **Customization**: Logo placement, color matching
 - **Applications**: Golf course pro shops, corporate tournaments, team merchandise
 - **Quality**: Professional tournament grade
