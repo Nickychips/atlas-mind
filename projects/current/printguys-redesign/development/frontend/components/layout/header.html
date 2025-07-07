@@ -1,0 +1,235 @@
+<!-- PrintGuys.ca Header Component -->
+<header class="site-header bg-white shadow-lg sticky top-0 z-50">
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-between h-20">
+      
+      <!-- Logo -->
+      <div class="flex items-center">
+        <a href="/" class="flex items-center space-x-3">
+          <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
+            <span class="text-white font-bold text-xl">PG</span>
+          </div>
+          <div class="hidden sm:block">
+            <span class="text-2xl font-bold text-gray-900">PrintGuys</span>
+            <span class="text-xs text-gray-500 block">.ca</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex items-center space-x-8">
+        <div class="relative group">
+          <a href="/dtf-transfers" class="nav-link text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">
+            DTF Transfers
+          </a>
+          <div class="absolute top-full left-0 w-64 bg-white shadow-xl rounded-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
+            <div class="p-4 space-y-3">
+              <a href="/dtf-transfers" class="block text-sm text-gray-600 hover:text-blue-600">Standard DTF ($0.025/sq in)</a>
+              <a href="/dtf-transfers#premium" class="block text-sm text-gray-600 hover:text-blue-600">Premium DTF ($0.035/sq in)</a>
+              <a href="/dtf-transfers#bulk" class="block text-sm text-gray-600 hover:text-blue-600">Bulk Orders ($0.020/sq in)</a>
+              <a href="/uv-dtf-stickers" class="block text-sm text-gray-600 hover:text-blue-600">UV DTF Stickers</a>
+            </div>
+          </div>
+        </div>
+        
+        <a href="/screen-printing" class="nav-link text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">
+          Screen Printing
+        </a>
+        
+        <a href="/sublimation" class="nav-link text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">
+          Sublimation
+        </a>
+        
+        <a href="/embroidery" class="nav-link text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">
+          Embroidery
+        </a>
+        
+        <div class="relative group">
+          <a href="/about" class="nav-link text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">
+            About
+          </a>
+          <div class="absolute top-full left-0 w-48 bg-white shadow-xl rounded-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
+            <div class="p-4 space-y-3">
+              <a href="/about" class="block text-sm text-gray-600 hover:text-blue-600">Our Story</a>
+              <a href="/about#team" class="block text-sm text-gray-600 hover:text-blue-600">Meet the Team</a>
+              <a href="/about#facility" class="block text-sm text-gray-600 hover:text-blue-600">Our Facility</a>
+              <a href="/samples" class="block text-sm text-gray-600 hover:text-blue-600">Request Samples</a>
+            </div>
+          </div>
+        </div>
+        
+        <a href="/contact" class="nav-link text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">
+          Contact
+        </a>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="flex items-center space-x-4">
+        <!-- Phone Number (Desktop) -->
+        <div class="hidden xl:flex items-center text-gray-600">
+          <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+          </svg>
+          <span class="font-medium">1-800-PRINT-GUY</span>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="flex items-center space-x-3">
+          <a href="/quote" class="btn-primary hidden sm:inline-flex items-center px-6 py-2.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-200">
+            Get Quote
+          </a>
+          <a href="/upload" class="btn-secondary inline-flex items-center px-6 py-2.5 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors duration-200">
+            Upload Design
+          </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="lg:hidden p-2 text-gray-600 hover:text-gray-900 focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Menu -->
+  <div id="mobile-menu" class="lg:hidden bg-white border-t border-gray-200 hidden">
+    <div class="px-4 py-4 space-y-4">
+      
+      <!-- Mobile Services Menu -->
+      <div class="space-y-3">
+        <div class="font-semibold text-gray-900">Services</div>
+        <div class="pl-4 space-y-2">
+          <a href="/dtf-transfers" class="block text-gray-600 hover:text-blue-600 transition-colors">DTF Transfers</a>
+          <a href="/screen-printing" class="block text-gray-600 hover:text-blue-600 transition-colors">Screen Printing</a>
+          <a href="/sublimation" class="block text-gray-600 hover:text-blue-600 transition-colors">Sublimation</a>
+          <a href="/embroidery" class="block text-gray-600 hover:text-blue-600 transition-colors">Embroidery</a>
+        </div>
+      </div>
+
+      <!-- Mobile Company Menu -->
+      <div class="space-y-3">
+        <div class="font-semibold text-gray-900">Company</div>
+        <div class="pl-4 space-y-2">
+          <a href="/about" class="block text-gray-600 hover:text-blue-600 transition-colors">About Us</a>
+          <a href="/samples" class="block text-gray-600 hover:text-blue-600 transition-colors">Request Samples</a>
+          <a href="/contact" class="block text-gray-600 hover:text-blue-600 transition-colors">Contact</a>
+        </div>
+      </div>
+
+      <!-- Mobile Contact Info -->
+      <div class="pt-4 border-t border-gray-200">
+        <div class="text-center space-y-3">
+          <div class="text-lg font-semibold text-gray-900">1-800-PRINT-GUY</div>
+          <div class="flex space-x-3">
+            <a href="/quote" class="flex-1 text-center px-4 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+              Get Quote
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<!-- Header JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Mobile menu toggle
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', function() {
+      mobileMenu.classList.toggle('hidden');
+      
+      // Toggle hamburger icon
+      const icon = mobileMenuBtn.querySelector('svg path');
+      if (mobileMenu.classList.contains('hidden')) {
+        icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+      } else {
+        icon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+      }
+    });
+  }
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', function(e) {
+    if (mobileMenu && !mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+      mobileMenu.classList.add('hidden');
+      const icon = mobileMenuBtn.querySelector('svg path');
+      icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+    }
+  });
+
+  // Add active state to current page nav link
+  const currentPath = window.location.pathname;
+  const navLinks = document.querySelectorAll('.nav-link');
+  
+  navLinks.forEach(link => {
+    if (link.getAttribute('href') === currentPath) {
+      link.classList.add('text-blue-600', 'font-bold');
+      link.classList.remove('text-gray-700');
+    }
+  });
+});
+</script>
+
+<!-- Header Styles -->
+<style>
+.site-header {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.nav-link:hover {
+  text-decoration: none;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Dropdown animation */
+.group:hover .group-hover\:opacity-100 {
+  animation: fadeInDown 0.2s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile menu animation */
+#mobile-menu {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Sticky header background blur effect */
+.site-header {
+  backdrop-filter: blur(10px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+}
+</style>
