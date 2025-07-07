@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrintGuys.ca - Canada's Leading DTF Transfer Specialists</title>
+  <meta name="description" content="Professional DTF heat transfers in 24 hours. Transparent pricing at $0.025/sq inch, no minimums, 70-100 wash durability. Canada's largest DTF printer.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <!-- Header -->
+  <div id="header-placeholder"></div>
+  
+  <!-- Homepage Hero -->
+  <div id="hero-placeholder"></div>
+  
+  <!-- Trust Badges -->
+  <div id="trust-badges-placeholder"></div>
+  
+  <!-- Services Grid -->
+  <div id="service-grid-placeholder"></div>
+  
+  <!-- Process Steps -->
+  <div id="process-placeholder"></div>
+  
+  <!-- Testimonials -->
+  <div id="testimonials-placeholder"></div>
+  
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+  
+  <!-- Component Loader -->
+  <script src="/js/component-loader.js"></script>
+  <script>
+    // Load all homepage components
+    document.addEventListener('DOMContentLoaded', function() {
+      loadComponent('header', '/components/layout/header.html');
+      loadComponent('hero', '/components/hero/hero-homepage.html');
+      loadComponent('trust-badges', '/components/utility/trust-badges.html');
+      loadComponent('service-grid', '/components/content/service-grid.html');
+      loadComponent('process', '/components/content/process-steps.html');
+      loadComponent('testimonials', '/components/content/testimonials.html');
+      loadComponent('footer', '/components/layout/footer.html');
+    });
+  </script>
+</body>
+</html>
